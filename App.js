@@ -8,6 +8,8 @@
 
 import React from 'react';
 import type {Node} from 'react';
+import {useState, useEffect} from 'react';
+
 import {
   SafeAreaView,
   ScrollView,
@@ -15,6 +17,7 @@ import {
   StyleSheet,
   Text,
   useColorScheme,
+  Button,
   View,
 } from 'react-native';
 
@@ -55,6 +58,10 @@ const Section = ({children, title}): Node => {
 const App: () => Node = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
+  const [counter, setCounter] = useState(0);
+
+  let hanldeUpdateMessage = () => counter + 1;
+
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
@@ -70,9 +77,16 @@ const App: () => Node = () => {
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
+          <Button
+            onPress={() => setCounter(hanldeUpdateMessage)}
+            title="Learn More"
+            color="#841584"
+            accessibilityLabel="Learn more about this purple button"
+          />
           <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
+            Edit{' '}
+            <Text style={styles.highlight}>App.js {counter.toString()}</Text> to
+            change this screen and then come back to see your edits.
           </Section>
           <Section title="See Your Changes">
             <ReloadInstructions />
